@@ -1,0 +1,72 @@
+en
+conf t
+
+vlan 40
+name vlan40
+ex
+
+vlan 60
+name vlan60
+ex
+
+vlan 70
+name vlan70
+ex
+
+int fa0/2
+Switchport access vlan 40
+ex
+
+int fa0/3
+Switchport access vlan 60
+ex
+
+int fa0/4
+Switchport access vlan 70
+ex
+
+
+Int fa0/3
+Switchport mode trunk
+Switchport trunk allowed vlan 40,60,70
+
+ex
+do wr
+
+
+
+Int fa0/1
+Switchport mode trunk
+Switchport trunk allowed vlan 50,60,70
+ex
+do wr
+
+dhcp
+en
+conf t
+int fa0/0.40
+Encapsulation dot1Q 40
+Ip address 192.168.6.1 255.255.255.0
+ex
+Ip dhcp pool vlan40
+network 192.168.6.0 255.255.255.0
+default-router 192.168.6.1
+dns-server 8.8.8.8
+ex
+Int gig0/1.80
+Encapsulation dot1Q 80
+Ip address 192.168.80.1 255.255.255.0
+ex
+Ip dhcp pool vlan80
+network 192.168.80.0 255.255.255.0
+default-router 192.168.80.1
+dns-server 192.168.80.1
+ex
+Int gig0/1.70
+Encapsulation dot1Q 70
+Ip address 192.168.70.1 255.255.255.0
+ex
+Ip dhcp pool vlan70
+network 192.168.70.1 255.255.255.0
+default-router 192.168.70.1
+dns-server 192.168.25.100
